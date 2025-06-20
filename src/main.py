@@ -1,11 +1,11 @@
 from textnode import TextNode, TextType
 from htmlnode import HTMLNode
+from leafnode import LeafNode
 
 def main():
-    html_node = HTMLNode("p", "This is a paragraph", props={"href":"https://www.blah.com", 
-                                                            "target" : "_blank"})
-    print(html_node.props_to_html())
-    print(html_node)
+    leaf_node = LeafNode("p", "This is a paragraph", {"href":"e3ee3e3ee3", "target":"_blank"})
+    print(leaf_node.to_html())
+    
 
 if __name__ == "__main__":
     main()
