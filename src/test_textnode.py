@@ -1,6 +1,7 @@
 import unittest
 
-from textnode import TextNode, TextType
+from textnode import TextNode
+from texttype import TextType
 
 
 class TestTextNode(unittest.TestCase):
@@ -11,7 +12,7 @@ class TestTextNode(unittest.TestCase):
 
     def test_not_eq(self):
         node_one = TextNode("some text", TextType.CODE)
-        node_two = TextNode("an image", TextType.IMAGES)
+        node_two = TextNode("an image", TextType.IMAGE)
         self.assertNotEqual(node_one, node_two)
 
 
