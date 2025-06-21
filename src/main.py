@@ -3,11 +3,13 @@ from texttype import TextType
 from htmlnode import HTMLNode
 from leafnode import LeafNode
 from parentnode import ParentNode
-from text_node_to_html_node import text_node_to_html_node
-from extract_from_markdown import extract_markdown_images, extract_markdown_links
+from splitnodesdelimiter import split_nodes_delimiter
 
 def main():
+    # node_one = TextNode("blah blah blah `some code block` hfrihfrihfrf", TextType.TEXT)
+    # print(split_nodes_delimiter([node_one, node_one], "`", TextType.CODE))
     ...
+    
     
 
 if __name__ == "__main__":
