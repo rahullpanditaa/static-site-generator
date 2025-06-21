@@ -9,11 +9,18 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
         if node.text_type != TextType.TEXT:
             new_nodes.append(node)
             continue
-        if matches := re.findall(fr"{delimiter}(.+){delimiter}", node.text):
-            for match in matches:
-                new_nodes.append(TextNode(match, text_type))
-        else:
-            raise BaseException("Invalid markdown syntax")
+        split_nodes = []
+        sections = node.text.split(delimiter)
+        if len(sections) % 2 == 0:
+            raise ValueError("invalid markdown, formatted section not closed")
+        for i in range(len(sections)):
+            if sections[i] == "":
+                continue
+            if i % 2 == 0:
+                split_nodes.append(TextNode(sections[i], TextType.TEXT))
+            else:
+                split_nodes.append(TextNode(sections[i], text_type))
+        new_nodes.extend(split_nodes)
         
     return new_nodes
 
