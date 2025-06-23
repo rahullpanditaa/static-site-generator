@@ -18,16 +18,34 @@ def markdown_to_html_node(markdown):
     for block in blocks:
         block_type = block_to_block_type(block)
         opening_tag = generate_opening_tag(block_type)
-        closing_tag = opening_tag.replace("<", "</")
         if block_type == BlockType.CODE:
             code_node = ParentNode("code", [])
             node = ParentNode("pre", [code_node])
             main_html_node_children.append(node)
+        
+        if block_type == BlockType.ORDERED_LIST or block_type == BlockType.UNORDERED_LIST:
+            block = format_list_block(block)
+            
         children = text_to_children(block)
         node = ParentNode(opening_tag, children)
         main_html_node_children.append(node)
 
     return ParentNode("div", main_html_node_children)
+# - item 1
+# - item 2
+# - item 3
+def format_list_block(block):
+    block_to_return = []
+    items = block.split("\n")
+    for item in items:
+        item = item.replace("- ", "<li>")
+        item += "</li>"
+        block_to_return.append(item)
+
+    return "\n".join(block_to_return)
+    
+
+    
 
 
 
