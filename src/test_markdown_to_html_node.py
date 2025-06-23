@@ -21,6 +21,17 @@ This is another paragraph with _italic_ text and some `code` here
 2. ol item 2
 
 """
+        # node = markdown_to_html_node(md)
+        # html = node.to_html()
+        # print(html)
+
+    
+    def test_markdown_to_html_codeblock(self):
+        md = """
+```
+This is text that _should_ remain
+the same **even** with inline stuff
+```
+"""
         node = markdown_to_html_node(md)
-        html = node.to_html()
-        print(html)
+        print(node.to_html())

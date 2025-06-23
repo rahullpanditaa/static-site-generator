@@ -2,6 +2,9 @@ from markdown_to_blocks import markdown_to_blocks
 from block_to_block_type import block_to_block_type
 from blocktype import BlockType
 from parentnode import ParentNode
+from leafnode import LeafNode
+from textnode import TextNode
+from texttype import TextType
 from text_to_textnodes import text_to_textnodes
 from text_node_to_html_node import text_node_to_html_node
 
@@ -19,9 +22,17 @@ def markdown_to_html_node(markdown):
         block_type = block_to_block_type(block)
         opening_tag = generate_opening_tag(block_type)
         if block_type == BlockType.CODE:
-            code_node = ParentNode("code", [])
+            block_contents = block.replace("```","")
+            code_text = TextNode(block_contents, TextType.TEXT)
+            code_text_node = text_node_to_html_node(code_text)
+            code_node = ParentNode(opening_tag, [code_text_node])
             node = ParentNode("pre", [code_node])
             main_html_node_children.append(node)
+            continue
+
+            # code_node = LeafNode("code")
+            # node = ParentNode("pre", [code_node])
+            # main_html_node_children.append(node)
         
         if block_type == BlockType.ORDERED_LIST or block_type == BlockType.UNORDERED_LIST:
             block = format_list_block(block)
