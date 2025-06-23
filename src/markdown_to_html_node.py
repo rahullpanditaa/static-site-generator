@@ -40,14 +40,14 @@ def text_to_children(text):
 def generate_opening_tag(block_type):
     match block_type:
         case BlockType.QUOTE:
-            return "<blockquote>"
+            return "blockquote"
         case BlockType.CODE:
-            return "<pre><code>"
+            return "code"
         case BlockType.HEADING:
-            return "<h>"
+            return "h"
         case BlockType.PARAGRAPH:
-            return "<p>"
+            return "p"
         case BlockType.UNORDERED_LIST:
-            return "<ul>"
+            return "ul"
         case BlockType.ORDERED_LIST:
-            return "<ol>"
+            return "ol"

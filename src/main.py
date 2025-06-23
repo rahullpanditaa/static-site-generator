@@ -3,15 +3,7 @@ from markdown_to_blocks import markdown_to_blocks
 from blocktype import BlockType
 
 def main():
-    md = """
-``` 
-def sum(a,b):
-    return a + b
-```
-"""
-    blocks = markdown_to_blocks(md)
-    print(blocks)
-    
+    ...
     
     
 
