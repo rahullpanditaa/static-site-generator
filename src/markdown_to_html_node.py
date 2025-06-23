@@ -25,15 +25,16 @@ def markdown_to_html_node(markdown):
         
         if block_type == BlockType.ORDERED_LIST or block_type == BlockType.UNORDERED_LIST:
             block = format_list_block(block)
+
+        if block_type == BlockType.HEADING:
+            opening_tag += str(block.count("#"))
             
         children = text_to_children(block)
         node = ParentNode(opening_tag, children)
         main_html_node_children.append(node)
 
     return ParentNode("div", main_html_node_children)
-# - item 1
-# - item 2
-# - item 3
+
 def format_list_block(block):
     block_to_return = []
     items = block.split("\n")
@@ -43,10 +44,6 @@ def format_list_block(block):
         block_to_return.append(item)
 
     return "\n".join(block_to_return)
-    
-
-    
-
 
 
 def text_to_children(text):

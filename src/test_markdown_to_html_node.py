@@ -4,6 +4,10 @@ from markdown_to_html_node import markdown_to_html_node
 class TestMarkdownToHTMLNode(unittest.TestCase):
     def test_markdown_to_html_node_output_generation(self):
         md = """
+# heading 1
+
+## heading 2
+
 This is **bolded** paragraph
 text in a p tag here
 
