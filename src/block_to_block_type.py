@@ -4,15 +4,15 @@ from blocktype import BlockType
 def block_to_block_type(block):
     if re.search(r"^#{1,6} .+$", block):
         return BlockType.HEADING
-    elif block.startswith("```") and block.endswith("```"):
+    elif block.lstrip().startswith("```") and block.rstrip().endswith("```"):
         return BlockType.CODE
     else:
         lines = block.split("\n")
-        if all(line.startswith(">") for line in lines):
+        if all(re.match(r"^>\s*.+$", line.strip()) for line in lines):
             return BlockType.QUOTE
-        elif all(line.startswith("- ") for line in lines):
+        elif all(line.strip().startswith("- ") for line in lines):
             return BlockType.UNORDERED_LIST
-        elif all(re.match(r"^[1-9]+\. .+$", line) for line in lines):
+        elif all(re.match(r"^[1-9]+\. .+$", line.strip()) for line in lines):
             return BlockType.ORDERED_LIST
         else:
             return BlockType.PARAGRAPH
