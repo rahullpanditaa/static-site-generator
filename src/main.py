@@ -1,9 +1,7 @@
-from block_to_block_type import block_to_block_type
-from markdown_to_blocks import markdown_to_blocks
-from blocktype import BlockType
+from source_to_dest_dir import source_to_dest_dir
 
 def main():
-    ...
+    source_to_dest_dir()
     
     
 
