@@ -59,7 +59,10 @@ def format_list_block(block):
 
 def text_to_children(text):
     children_nodes = text_to_textnodes(text)
-    children_html_nodes = [text_node_to_html_node(child_node) for child_node in children_nodes]
+    children_html_nodes = []
+    for child_node in children_nodes:
+        children_html_nodes.append(text_node_to_html_node(child_node))
+    # children_html_nodes = [text_node_to_html_node(child_node) for child_node in children_nodes]
     return children_html_nodes
 
 

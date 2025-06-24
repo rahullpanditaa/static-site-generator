@@ -17,7 +17,7 @@ def text_node_to_html_node(text_node: TextNode):
         case TextType.CODE:
             return LeafNode(tag="code", value=text_node.text)
         case TextType.LINK:
-            matches = re.search(r"^\[(.+)\]\((.+)\)", text_node.text)
-            return LeafNode(tag="a", value=matches.group(1), props={"href":f"{matches.group(2)}"})
+            # matches = re.search(r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)", text_node.text)
+            return LeafNode(text_node.text, tag="a", props={"href":f"{text_node.url}"})
         case TextType.IMAGE:
             return LeafNode(tag="img", value="", props={"src":"www", "alt":"alt-text"})
