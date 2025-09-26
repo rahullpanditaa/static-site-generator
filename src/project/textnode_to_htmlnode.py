@@ -3,12 +3,12 @@ from project.htmlnode import HTMLNode
 from project.leafnode import LeafNode
 
 def text_node_to_html_node(text_node: TextNode):
-    if text_node.text_type not in [t.value for t in TextType]:
+    if text_node.text_type not in TextType:
         raise ValueError("Error: Given Text Node has invalid type")
     
     match text_node.text_type:
-        case TextType.TEXT:
-            return LeafNode(value=text_node.text)
+        case TextType.PLAIN:
+            return LeafNode(tag=None, value=text_node.text)
         case TextType.BOLD:
             return LeafNode(tag="b", value=text_node.text)
         case TextType.ITALIC:
