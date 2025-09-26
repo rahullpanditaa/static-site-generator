@@ -52,7 +52,7 @@ class HTMLNode:
             for (k, v) in self.props.items():
                 html_node_atributes += f' {k}="{v}"'
             return html_node_atributes
-        return None
+        return ""
     
     def __repr__(self):
         return f"HTMLNode(Tag: {self.tag}, Value: {self.value}, Children: {self.children}, Props: {self.props_to_html()})"
