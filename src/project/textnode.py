@@ -8,6 +8,7 @@ class TextType(Enum):
     LINK = "link"
     IMAGE = "url"
 
+# represents various types of inline text
 class TextNode:
     def __init__(self, text, text_type, url=None):
         self.text = text
