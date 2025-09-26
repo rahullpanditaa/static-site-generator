@@ -9,7 +9,7 @@ class TextType(Enum):
     IMAGE = "url"
 
 class TextNode:
-    def _init__(self, text, text_type, url=None):
+    def __init__(self, text, text_type, url=None):
         self.text = text
         self.text_type = text_type
         self.url = url
@@ -30,7 +30,7 @@ class TextNode:
     
     @text_type.setter
     def text_type(self, text_type):
-        if text_type not in [t.name for t in TextType]:
+        if not isinstance(text_type, TextType):
             raise ValueError(f"Error: Invalid text type {text_type} given")
         self._text_type = text_type
 
