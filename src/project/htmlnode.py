@@ -31,7 +31,7 @@ class HTMLNode:
     
     @children.setter
     def children(self, children):
-        if (children and isinstance(children, list)) or children == None:
+        if isinstance(children, list) or children == None:
             self._children = children
     
     @property
