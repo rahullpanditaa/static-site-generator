@@ -1,0 +1,30 @@
+import re
+from project.textnode import TextNode, TextType
+
+def split_nodes_delimiter(old_nodes : list[TextNode], delimiter, text_type):
+    # take a list of old nodes
+    # return a new list of nodes
+    # where PLAIN TEXT type nodes in the input list are
+    # split into multiple nodes based on the syntax
+    new_nodes = []
+    for node in old_nodes:
+        if node.text_type != TextType.PLAIN:
+            new_nodes.append(node)
+            continue
+        if node.text.count(delimiter) % 2 != 0:
+            raise ValueError("Error: Invalid markdown, matching deimiter missing")
+        
+        current_node_contents = node.text.split(delimiter)
+        split_nodes = []
+        for i in range(len(current_node_contents)):
+            if current_node_contents[i] == "":
+                continue
+            if i % 2 == 0:
+                split_nodes.append(TextNode(current_node_contents[i], TextType.PLAIN))
+            else:
+                split_nodes.append(TextNode(current_node_contents[i], text_type))
+        new_nodes.extend(split_nodes)
+    return new_nodes
+
+        
+        
