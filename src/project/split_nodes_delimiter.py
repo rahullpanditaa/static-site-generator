@@ -12,7 +12,7 @@ def split_nodes_delimiter(old_nodes : list[TextNode], delimiter, text_type):
             new_nodes.append(node)
             continue
         if node.text.count(delimiter) % 2 != 0:
-            raise ValueError("Error: Invalid markdown, matching deimiter missing")
+            raise ValueError("Error: Invalid markdown, matching delimiter missing")
         
         current_node_contents = node.text.split(delimiter)
         split_nodes = []
