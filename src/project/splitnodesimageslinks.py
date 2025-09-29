@@ -4,15 +4,15 @@ from project.textnode import TextNode, TextType
 def split_nodes_image(old_nodes: list[TextNode]):
     new_nodes = []
     for node in old_nodes:
+        old_node_text = node.text
         if node.text_type != TextType.PLAIN:
             new_nodes.append(node)
             continue
-        if not extract_markdown_images(node) and node.text:
+        if old_node_text and not extract_markdown_images(old_node_text):
             new_nodes.append(node)
             continue
 
-        old_node_text = node.text
-        links_img = extract_markdown_images(node)
+        links_img = extract_markdown_images(old_node_text)
 
         for img in links_img:
             current_node_contents = old_node_text.split(f"![{img[0]}]({img[1]})", 1)
