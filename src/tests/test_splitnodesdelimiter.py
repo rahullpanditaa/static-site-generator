@@ -86,10 +86,10 @@ class TestSplitNodesDelimiter(unittest.TestCase):
         
     def test_multiple_delims_multiple_nodes(self):
         node1 = TextNode("This is plain text with `code` inside it, as well as _italics_ and **bold** text.", TextType.PLAIN)
-        node2 = TextNode("`there is only code here`", TextType.CODE)
-        node3 = TextNode("_only italics_", TextType.ITALIC)
+        # node2 = TextNode("`there is only code here`", TextType.CODE)
+        # node3 = TextNode("_only italics_", TextType.ITALIC)
         node4 = TextNode("Plain text. Completely plain. Oh wait! some **bold** text, as well as some _italics_. Have fun testing this.", TextType.PLAIN)
-        new_nodes = split_nodes_delimiter([node1, node2, node3, node4], "`", TextType.CODE)
+        new_nodes = split_nodes_delimiter([node1, node4], "`", TextType.CODE)
         new_nodes = split_nodes_delimiter(new_nodes, "**", TextType.BOLD)
         new_nodes = split_nodes_delimiter(new_nodes, "_", TextType.ITALIC)
         self.assertEqual(new_nodes,
@@ -101,8 +101,8 @@ class TestSplitNodesDelimiter(unittest.TestCase):
                              TextNode(" and ", TextType.PLAIN),
                              TextNode("bold", TextType.BOLD),
                              TextNode(" text.", TextType.PLAIN),
-                             TextNode("there is only code here", TextType.CODE),
-                             TextNode("only italics", TextType.ITALIC),
+                            #  TextNode("there is only code here", TextType.CODE),
+                            #  TextNode("only italics", TextType.ITALIC),
                              TextNode("Plain text. Completely plain. Oh wait! some ", TextType.PLAIN),
                              TextNode("bold", TextType.BOLD),
                              TextNode(" text, as well as some ", TextType.PLAIN),

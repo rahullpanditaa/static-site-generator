@@ -35,6 +35,15 @@ class TextNode:
             raise ValueError(f"Error: Invalid text type {text_type} given")
         self._text_type = text_type
 
+    # @property
+    # def url(self):
+    #     if self._url:
+    #         return self._url
+    
+    # @url.setter
+    # def url(self, url):
+    #     self._url = url if url else None
+
     def __eq__(self, other):
         return self.text == other.text and self.text_type == other.text_type and self.url == other.url
     
