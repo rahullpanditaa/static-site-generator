@@ -1,0 +1,36 @@
+from project.extractlinks import extract_markdown_links, extract_markdown_images
+from project.textnode import TextNode, TextType
+
+def split_nodes_image(old_nodes: list[TextNode]):
+    new_nodes = []
+    for node in old_nodes:
+        if node.text_type != TextType.PLAIN:
+            new_nodes.append(node)
+            continue
+        if not extract_markdown_images(node) and node.text:
+            new_nodes.append(node)
+            continue
+
+        old_node_text = node.text
+        links_img = extract_markdown_images(node)
+
+        for img in links_img:
+            current_node_contents = old_node_text.split(f"![{img[0]}]({img[1]})", 1)
+            if len(current_node_contents) != 2:  
+                raise ValueError("Error: Invalid markdown.")
+            if current_node_contents[0]:
+                new_nodes.append(TextNode(current_node_contents[0], TextType.PLAIN))
+            img_node = TextNode(img[0], TextType.IMAGE, img[1])
+            new_nodes.append(img_node)
+            old_node_text = current_node_contents[1]
+        
+        if old_node_text:
+            new_nodes.append(TextNode(old_node_text, TextType.PLAIN))
+    return new_nodes
+
+
+
+        
+
+def split_nodes_links(old_nodes):
+    ...
