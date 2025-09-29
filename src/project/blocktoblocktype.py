@@ -6,7 +6,7 @@ def block_to_block_type(md: str):
     # returns -> BlockType representing type of arg block
     if is_block_heading(md):
         return BlockType.HEADING
-    if is_block_code(str):
+    if is_block_code(md):
         return BlockType.CODE
     if is_block_quote(md):
         return BlockType.QUOTE
@@ -17,10 +17,8 @@ def block_to_block_type(md: str):
     return BlockType.PARAGRAPH
 
 
-def is_block_heading(block):
-    if matches := re.search(r"^#{1,6} .+$", block):
-        return True
-    return False
+def is_block_heading(block: str):
+    return block.startswith(("# ", "## ", "### ", "#### ", "##### ", "##### ", "###### "))
 
 def is_block_code(block: str):
     return block.startswith("```") and block.endswith("```")
