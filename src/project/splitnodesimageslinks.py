@@ -7,7 +7,7 @@ def split_nodes_image(old_nodes: list[TextNode]):
         old_node_text = node.text
         if node.text_type != TextType.PLAIN:
             node_text = old_node_text.replace("`", "").replace("**", "").replace("_", "")
-            new_nodes.append(TextNode(node_text, node.text_type))
+            new_nodes.append(TextNode(node_text, node.text_type, node.url if node.url else None))
             continue
         if old_node_text and not extract_markdown_images(old_node_text):
             new_nodes.append(node)
@@ -58,6 +58,6 @@ def split_nodes_links(old_nodes: list[TextNode]):
             old_node_text = current_node_contents[1]
 
         if old_node_text:
-            new_nodes.append(TextNode(old_node_text), TextType.PLAIN)
+            new_nodes.append(TextNode(old_node_text, TextType.PLAIN))
         
     return new_nodes
