@@ -55,8 +55,9 @@ def create_new_html_block_node(block_text: str, block_type: BlockType):
             quote = block_text.splitlines()
             quote_lines = []
             for line in quote:
-                item = line.removeprefix(">")
-                quote_lines.append(item)
+                cleaned_item = line.removeprefix(">")
+                children = create_child_nodes_from_text(cleaned_item)
+                
             complete_quote = "\n".join(quote_lines)
             return ParentNode(tag="blockquote", children=create_child_nodes_from_text(complete_quote))
         case BlockType.CODE:
