@@ -39,11 +39,10 @@ def create_new_html_block_node(block_text: str, block_type: BlockType):
             ul = block_text.splitlines()
             ul_items = []
             for li in ul:
-                item = li.removeprefix("- ")
-                item = f"<li>{item}</li>"
-                ul_items.append(item)
-            ul_list = "\n".join(ul_items)
-            return ParentNode(tag="ul", children=create_child_nodes_from_text(ul_list))
+                cleaned_item = li.removeprefix("- ")
+                children = create_child_nodes_from_text(cleaned_item)
+                ul_items.append(ParentNode(tag="li", children=children))
+            return ParentNode(tag="ul", children=ul_items)
         case BlockType.ORDERED_LIST:
             ol = block_text.splitlines()
             ol_items = []

@@ -87,9 +87,20 @@ the **same** even with inline stuff
 
         node = markdown_to_html_node(md)
         html = node.to_html()
-        # print(html)
         self.assertEqual(html, 
                          "<div><ol><li>first item in this ordered list</li><li>second item</li><li>this item has some <b>bold</b> text inside</li><li>here's some <i>italics</i>, some <b>bold</b>, and a little bit of <code>inline code</code></li><li>test this bitch</li></ol></div>")
+        
+    def test_unordered_list_block(self):
+        md = """
+- item one
+- item 2 with some **bold** text
+- item 3 with some _italics_ and `code` inside"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(html,
+                         "<div><ul><li>item one</li><li>item 2 with some <b>bold</b> text</li><li>item 3 with some <i>italics</i> and <code>code</code> inside</li></ul></div>")
+        
 
 
 
