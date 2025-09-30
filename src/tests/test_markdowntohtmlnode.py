@@ -74,6 +74,20 @@ the **same** even with inline stuff
         self.assertEqual(html5, "<div><h5>heading level 5 with <b>bold</b> text inside</h5></div>")
         self.assertEqual(html6, "<div><h6>heading level 6 with <b>bold</b> and <i>italics</i> text</h6></div>")
 
+    def test_ordered_list_block(self):
+        md = """
+1. first item in this ordered list
+2. second item
+3. this item has some **bold** text inside
+4. here's some _italics_, some **bold**, and a little bit of `inline code`
+5. test this bitch"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        # print(html)
+        self.assertEqual(html, 
+                         "<div><ol><li>first item in this ordered list</li><li>second item</li><li>this item has some <b>bold</b> text inside</li><li>here's some <i>italics</i>, some <b>bold</b>, and a little bit of <code>inline code</code></li><li>test this bitch</li></div>")
+
 
 
 if __name__ == "__main__":

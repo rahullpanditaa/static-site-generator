@@ -45,7 +45,11 @@ def create_new_html_block_node(block_text: str, block_type: BlockType):
             ul_list = "\n".join(ul_items)
             return ParentNode(tag="ul", children=create_child_nodes_from_text(ul_list))
         case BlockType.ORDERED_LIST:
+            # 1. frfrfrf
+            # 2. frfr **fr** frfr
+            # 3. frfrfrfr _i_ kok `code1`
             ol = block_text.splitlines()
+            # ["1. frfrfrf", "2. frfr **fr** frfr", "3. frfrfrfr _i_ kok `code1`"]
             ol_items = []
             for li in ol:
                 item = re.sub(r"^\d{1,} ", "", li)
