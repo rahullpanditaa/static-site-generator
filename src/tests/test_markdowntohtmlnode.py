@@ -35,5 +35,46 @@ the **same** even with inline stuff
             "<div><pre><code>This is text that _should_ remain\nthe **same** even with inline stuff\n</code></pre></div>",
         )
 
+    def test_heading_block(self):
+        md1 = """
+# heading one"""
+        md2 = """
+## heading level two"""
+        md3 = """
+### heading level three"""
+        md4 = """
+#### heading level four"""
+        md5 = """
+##### heading level 5 with **bold** text inside"""
+        md6 = """
+###### heading level 6 with **bold** and _italics_ text"""
+
+        node1 = markdown_to_html_node(md1)
+        html1 = node1.to_html()
+
+        node2 = markdown_to_html_node(md2)
+        html2 = node2.to_html()
+
+        node3 = markdown_to_html_node(md3)
+        html3 = node3.to_html()
+
+        node4 = markdown_to_html_node(md4)
+        html4 = node4.to_html()
+
+        node5 = markdown_to_html_node(md5)
+        html5 = node5.to_html()
+
+        node6 = markdown_to_html_node(md6)
+        html6 = node6.to_html()
+
+        self.assertEqual(html1, "<div><h1>heading one</h1></div>")
+        self.assertEqual(html2, "<div><h2>heading level two</h2></div>")
+        self.assertEqual(html3, "<div><h3>heading level three</h3></div>")
+        self.assertEqual(html4, "<div><h4>heading level four</h4></div>")
+        self.assertEqual(html5, "<div><h5>heading level 5 with <b>bold</b> text inside</h5></div>")
+        self.assertEqual(html6, "<div><h6>heading level 6 with <b>bold</b> and <i>italics</i> text</h6></div>")
+
+
+
 if __name__ == "__main__":
     unittest.main()
