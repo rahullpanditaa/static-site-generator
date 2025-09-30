@@ -62,8 +62,8 @@ def create_new_html_block_node(block_text: str, block_type: BlockType):
             complete_quote = "\n".join(quote_lines)
             return ParentNode(tag="blockquote", children=create_child_nodes_from_text(complete_quote))
         case BlockType.CODE:
-            code_text = f"<code>{block_text.lstrip("```").rstrip("```").strip()}</code>"
-            code_node = TextNode(text=code_text, text_type=TextType.CODE)
+            code_text = block_text.lstrip("```").rstrip("```").strip()
+            code_node = LeafNode(tag="code", value=code_text + "\n")
             return ParentNode(tag="pre", children=[code_node])
 
 
