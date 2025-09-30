@@ -1,5 +1,8 @@
 import unittest
 from project.markdowntohtml import markdown_to_html_node
+from project.texttotextnodes import text_to_textnodes
+from project.textnode_to_htmlnode import text_node_to_html_node
+from project.textnode import TextNode, TextType
 
 class TestMarkdownToHTMLNode(unittest.TestCase):
     def test_paragraphs(self):
@@ -86,7 +89,7 @@ the **same** even with inline stuff
         html = node.to_html()
         # print(html)
         self.assertEqual(html, 
-                         "<div><ol><li>first item in this ordered list</li><li>second item</li><li>this item has some <b>bold</b> text inside</li><li>here's some <i>italics</i>, some <b>bold</b>, and a little bit of <code>inline code</code></li><li>test this bitch</li></div>")
+                         "<div><ol><li>first item in this ordered list</li><li>second item</li><li>this item has some <b>bold</b> text inside</li><li>here's some <i>italics</i>, some <b>bold</b>, and a little bit of <code>inline code</code></li><li>test this bitch</li></ol></div>")
 
 
 

@@ -45,18 +45,13 @@ def create_new_html_block_node(block_text: str, block_type: BlockType):
             ul_list = "\n".join(ul_items)
             return ParentNode(tag="ul", children=create_child_nodes_from_text(ul_list))
         case BlockType.ORDERED_LIST:
-            # 1. frfrfrf
-            # 2. frfr **fr** frfr
-            # 3. frfrfrfr _i_ kok `code1`
             ol = block_text.splitlines()
-            # ["1. frfrfrf", "2. frfr **fr** frfr", "3. frfrfrfr _i_ kok `code1`"]
             ol_items = []
             for li in ol:
-                item = re.sub(r"^\d{1,} ", "", li)
-                item = f"<li>{item}</li>"
-                ol_items.append(item)
-            ol_list = "\n".join(ol_items)
-            return ParentNode(tag="ol", children=create_child_nodes_from_text(ol_list))
+                cleaned_item = re.sub(r"^\d{1,}\. ", "", li)
+                children = create_child_nodes_from_text(cleaned_item)
+                ol_items.append(ParentNode(tag="li", children=children))
+            return ParentNode(tag="ol", children=ol_items)
         case BlockType.QUOTE:
             quote = block_text.splitlines()
             quote_lines = []
@@ -76,10 +71,13 @@ def create_child_nodes_from_text(block_text: str):
     # list of TextNodes (smallest inline item) from the block text
     # inline elements include - code, imgs, links, bold, italics
     text_nodes = text_to_textnodes(block_text)
+    # text_nodes = [TextNode(<li>frfrfrf</li><li>frfr , text, ), TextNode(fr, bold, ), TextNode( frfr</li><li>frfrfrfr , text, ), TextNode(i, italic, ), TextNode( kok , text, ), TextNode(code1, code, ), TextNode(</li>, text, )] 
 
     # now, need to convert text nodes into LeafNodes (HTML Nodes)
     leaf_nodes = []
     for text_node in text_nodes:
+        # text_node = TextNode(<li>frfrfrf</li><li>frfr , text, )
+        # leaf_nodes.append(LeafNode(tag=None, value=<li>frfrfrf</li><li>frfr ))
         leaf_nodes.append(text_node_to_html_node(text_node))
 
     return leaf_nodes # inline markdown text as html leaf nodes
