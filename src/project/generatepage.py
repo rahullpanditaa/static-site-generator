@@ -2,7 +2,7 @@ from project.markdowntohtml import markdown_to_html_node
 from project.extract_title import extract_title
 from pathlib import Path
 
-def generate_page(from_path, template_path, dest_path):
+def generate_page(from_path, template_path, dest_path, basepath):
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
 
     # read md at from_path
@@ -24,6 +24,8 @@ def generate_page(from_path, template_path, dest_path):
     title = extract_title(from_path_contents)
 
     html = template_contents.replace("{{ Title }}", title).replace("{{ Content }}", md_html_to_str)
+    html = html.replace('href="/', f'href="{basepath}')
+    html = html.replace('src="/', f'src="{basepath}')
 
     dest = Path(dest_path).resolve()
 
