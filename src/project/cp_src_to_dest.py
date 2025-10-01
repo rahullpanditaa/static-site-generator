@@ -1,7 +1,7 @@
 from pathlib import Path
 from shutil import copytree
 
-def src_to_dest(src="static", dest="public"):
+def src_to_dest(src="static", dest="docs"):
     src_dir = Path(src).resolve()
     dest_dir = Path(dest).resolve()
 
