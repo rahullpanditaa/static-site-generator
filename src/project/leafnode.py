@@ -7,8 +7,9 @@ class LeafNode(HTMLNode):
     def to_html(self):
         if self.tag != "code":
             self.value = self.value.replace("\n", " ")
-        if not self.value:
-            raise ValueError("Error: Leaf node must have a value.")
         if not self.tag:
             return f"{self.value}"
-        return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
+        if not self.value and self.tag != "img":
+            raise ValueError("Error: Leaf node must have a value.")
+        
+        return f"<{self.tag}{self.props_to_html()}>{self.value if self.value else ""}</{self.tag}>"
