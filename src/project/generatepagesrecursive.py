@@ -7,7 +7,12 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
     destination_dir_path = Path(dest_dir_path)
 
     for child in content_dir_path.iterdir():
+        child_rel_path = child.relative_to(content_dir_path)
+        dest_path = destination_dir_path / child_rel_path
         if not child.is_dir() and child.suffix == ".md":
-            generate_page(child.resolve(), template_file_path, destination_dir_path / child)
+            dest_file_path = dest_path.with_suffix(".html")
+            dest_file_path.parent.mkdir(parents=True, exist_ok=True)
+            generate_page(child, template_file_path, dest_file_path)
         else:
-            generate_pages_recursive(child.resolve(), template_file_path, destination_dir_path / child)
+            dest_path.mkdir(parents=True, exist_ok=True)
+            generate_pages_recursive(child, template_file_path, dest_path)
