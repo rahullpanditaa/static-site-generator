@@ -1,10 +1,8 @@
 import re
 from project.markdowntoblocks import markdown_to_blocks
 from project.blocktoblocktype import block_to_block_type, BlockType
-from project.htmlnode import HTMLNode
 from project.parentnode import ParentNode
 from project.leafnode import LeafNode
-from project.textnode import TextNode, TextType
 from project.texttotextnodes import text_to_textnodes
 from project.textnode_to_htmlnode import text_node_to_html_node
 
@@ -55,11 +53,11 @@ def create_new_html_block_node(block_text: str, block_type: BlockType):
             quote = block_text.splitlines()
             quote_lines = []
             for line in quote:
-                cleaned_item = line.removeprefix(">")
-                children = create_child_nodes_from_text(cleaned_item)
-                
-            complete_quote = "\n".join(quote_lines)
-            return ParentNode(tag="blockquote", children=create_child_nodes_from_text(complete_quote))
+                cleaned_item = re.sub(r"^> *", "", line).rstrip()
+                quote_lines.append(cleaned_item)
+            quote_text = "\n".join(quote_lines)
+            quote_children = create_child_nodes_from_text(quote_text)
+            return ParentNode(tag="blockquote", children=quote_children)
         case BlockType.CODE:
             code_text = block_text.lstrip("```").rstrip("```").strip()
             code_node = LeafNode(tag="code", value=code_text + "\n")
@@ -68,16 +66,10 @@ def create_new_html_block_node(block_text: str, block_type: BlockType):
 
 
 def create_child_nodes_from_text(block_text: str):
-    # list of TextNodes (smallest inline item) from the block text
-    # inline elements include - code, imgs, links, bold, italics
     text_nodes = text_to_textnodes(block_text)
-    # text_nodes = [TextNode(<li>frfrfrf</li><li>frfr , text, ), TextNode(fr, bold, ), TextNode( frfr</li><li>frfrfrfr , text, ), TextNode(i, italic, ), TextNode( kok , text, ), TextNode(code1, code, ), TextNode(</li>, text, )] 
 
-    # now, need to convert text nodes into LeafNodes (HTML Nodes)
     leaf_nodes = []
     for text_node in text_nodes:
-        # text_node = TextNode(<li>frfrfrf</li><li>frfr , text, )
-        # leaf_nodes.append(LeafNode(tag=None, value=<li>frfrfrf</li><li>frfr ))
         leaf_nodes.append(text_node_to_html_node(text_node))
 
     return leaf_nodes # inline markdown text as html leaf nodes

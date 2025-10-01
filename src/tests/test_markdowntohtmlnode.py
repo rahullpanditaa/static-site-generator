@@ -1,8 +1,5 @@
 import unittest
 from project.markdowntohtml import markdown_to_html_node
-from project.texttotextnodes import text_to_textnodes
-from project.textnode_to_htmlnode import text_node_to_html_node
-from project.textnode import TextNode, TextType
 
 class TestMarkdownToHTMLNode(unittest.TestCase):
     def test_paragraphs(self):
@@ -101,7 +98,16 @@ the **same** even with inline stuff
         self.assertEqual(html,
                          "<div><ul><li>item one</li><li>item 2 with some <b>bold</b> text</li><li>item 3 with some <i>italics</i> and <code>code</code> inside</li></ul></div>")
         
+    def test_quote_block(self):
+        md = """
+> this is the first line         
+> this is the second line of the quote, now
+>we continue on the **third** line"""
 
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(html, 
+                         "<div><blockquote>this is the first line this is the second line of the quote, now we continue on the <b>third</b> line</blockquote></div>")
 
 
 if __name__ == "__main__":
