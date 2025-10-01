@@ -13,7 +13,7 @@ def src_to_dest(src="static", dest="public"):
     
     # delete contents of dest dir
     delete_dir_contents(dest_dir)
-    copytree(src=src_dir, dst=dest_dir)
+    copytree(src=src_dir, dst=dest_dir, dirs_exist_ok=True)
     
 
 # will delete all files in dir and subdir

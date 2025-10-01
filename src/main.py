@@ -1,19 +1,7 @@
-from project.textnode import TextNode, TextType
-from project.htmlnode import HTMLNode
-from project.split_nodes_delimiter import split_nodes_delimiter
-from pathlib import Path
-from shutil import copytree
+from project.cp_src_to_dest import src_to_dest
 
 def main():
-    ...
-
-
-
-
-
-
-
-    
+    src_to_dest()   
 
 
 if __name__ == "__main__":
